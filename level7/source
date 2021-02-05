@@ -1,0 +1,36 @@
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <stdio.h>
+#include <sys/types.h>
+
+char        *c;  
+
+struct obj {
+  int priority;
+  char *name;
+};
+
+void m()
+{
+  printf("%s - %d\n", c, time(NULL));
+}
+
+int main(int argc, char **argv)
+{
+  struct obj *i1, *i2, *i3;
+  FILE fd;
+
+  i1 = malloc(sizeof(struct obj));
+  i1->priority = 1;
+  i1->name = malloc(8);
+
+  i2 = malloc(sizeof(struct obj));
+  i2->priority = 2;
+  i2->name = malloc(8);
+
+  strcpy(i1->name, argv[1]);
+  strcpy(i2->name, argv[2]);
+  fgets(c, 68, fd);
+  printf("~~");
+}

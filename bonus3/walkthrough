@@ -1,0 +1,8 @@
+The programm launch "/bin/sh" if the input match with fread buffer of /home/user/end/.pass
+The programm also atoi our input to specify at wich lenght it should insert a null character.
+So if we put 0 as input we can make the string read in /home/user/end/.pass be null.
+But it compare null with 0 si the strcmp doesn't match. The programm exit
+if there is more or less than two args.
+We put "" as arg and we have the shell.
+
+$> ./bonus3 ""

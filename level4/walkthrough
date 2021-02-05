@@ -1,0 +1,17 @@
+We can see like in the last level that the binary compare the global int with a value.
+This value is too big and its impossible to write it like this. so we split it into two short int.
+We want to write 0x1025544. It means, 0x10102 (65794 in decimal) in the high order bytes and 0x5544 (21828 in decimal) in the low order bytes.
+We want to write those value at 0x08049810. It means writing 0x10102 at 0x08049810 + 2 = 0x08049812 (high order) and 0x5544 at 0x08049810 (low order).
+Now, we have to figure out the value to set for the padding. Here is the formula :
+
+[The value we want] - [The bytes alredy wrote] = [The value to set].
+
+Let’s start with the low order bytes :
+
+It’ll will be 21828 - 8 = 21820, because we already wrote 8 bytes (the two 4 bytes addresses).
+
+Then, the high order bytes :
+
+It’ll will be 65794 - 21828 = 43966, because we already wrote 21828 bytes (the two 4 bytes addresses and 47798 bytes from the previous writing).
+
+$> python -c 'print "\x10\x98\x04\x08\x12\x98\x04\x08%21820x%12$hn%43966x%13$hn"' | ./level4

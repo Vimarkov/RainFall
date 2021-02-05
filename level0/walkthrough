@@ -1,0 +1,6 @@
+We can see that the binary is segfaulting
+When we pass an argument to it it says No !
+We can see a cmp
+If we reverse the hex value of this variable in decimal we obtain the number 423
+
+$> ./level0 423

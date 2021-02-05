@@ -1,0 +1,15 @@
+We can see that the auth name is store in the heap with malloc.
+In the login compare we can see the TEST je intruction that jump if address value is null.
+We can overwrite this value using after free exploit.
+If we free "auth" the "service" input will write into previous "auth" address cause to strdup call.
+
+$> ./level8
+auth AAAA
+reset
+service AAAA
+service BBBB
+service CCCC
+login
+
+"CCCC" point to the value that we want to modify
+

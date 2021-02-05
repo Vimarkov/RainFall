@@ -1,0 +1,8 @@
+We can see in this binary that it fopen "/home/user/level8/.pass"
+We can see also the fgets function that store the read file desciptor and store his content into a c string.
+There is a non call function m that print the c string and time.
+The binary need two arguments. Both off them are moved in the heap with strcpy.
+Program segfault when the first argument is too long. We can see that we can overwrite the destination adress of the second strcpy.
+We replace it with the got address of puts and in the second argument we choose what to write in this address so the m function.
+
+$> ./level7 `python -c "print 'AAAAAAAAAAAAAAAAAAAA\x28\x99\x04\x04'"` `python -c "print '\xf4\x84\x04\x08'"`

